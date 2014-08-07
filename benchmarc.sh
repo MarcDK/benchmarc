@@ -1,4 +1,4 @@
- #!/bin/bash
+#!/bin/bash
 #===================================================================================
 #
 # FILE: speedtool.sh
@@ -16,7 +16,7 @@
 # NOTES: ---
 # AUTHOR: Marc Tönsing
 # COMPANY: EatSmarter
-# VERSION: 1.0
+# VERSION: 1.1
 # CREATED: 06.08.2014
 # REVISION: 07.08.2014
 #===================================================================================
@@ -35,7 +35,7 @@ if [ -z "$2" ]
 fi
 
 getcURLResponseTime() {
-  TIME_TOTAL=$(curl -H "Cache-Control: no-cache, max-age=0" -g -s -w "%{time_total}\n" -o /dev/null $1);
+  TIME_TOTAL=$(curl -H "Cache-Control: no-cache, max-age=0" -g -s -w "%{time_total}\n" -o /dev/null $1 |sed -e "s/,/./g");
   echo ${TIME_TOTAL};
 }
 
@@ -51,10 +51,10 @@ while read line;
   for (( c=1; c<=$RUNS; c++ ))
     do
     RESPONSE_TIME=$(getcURLResponseTime $line?timestamp=$(timestamp))
-    TIME_TOTAL=$(echo $TIME_TOTAL + $RESPONSE_TIME | bc);
+    TIME_TOTAL=$(echo $TIME_TOTAL + $RESPONSE_TIME |bc);
   done
   
-  average=$(echo "($TIME_TOTAL * 1000) / $RUNS" | bc);
+  average=$(echo "($TIME_TOTAL * 1000) / $RUNS" |bc);
   TIME_TOTAL=0;
   
   echo $average;
