@@ -3,7 +3,7 @@
 #
 # FILE: benchmarc.sh
 #
-# USAGE: benchmarc.sh urls.txt 10
+# USAGE: benchmarc.sh urls.txt 10 (optional)
 #
 # DESCRIPTION: measures the average sever response time of urls in milliseconds.
 # First parameter specifies a plain text file with urls. Second parameter sets
