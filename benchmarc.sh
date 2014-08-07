@@ -14,8 +14,8 @@
 # REQUIREMENTS: ---
 # BUGS: ---
 # NOTES: ---
-# AUTHOR: Marc Tönsing, marc@eatsmarter.de
-# COMPANY: EatSmarter.de
+# AUTHOR: Marc Tönsing
+# COMPANY: EatSmarter
 # VERSION: 1.0
 # CREATED: 06.08.2014
 # REVISION: 07.08.2014
