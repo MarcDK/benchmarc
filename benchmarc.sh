@@ -45,7 +45,7 @@ timestamp() {
 
 while read line
 do
-TIME_TOTAL=0
+  TIME_TOTAL=0
   for (( c=1; c<=$RUNS; c++ ))
   do
     RESPONSE_TIME=$(getcURLResponseTime $line\&timestamp=$(timestamp)$c)
