@@ -16,7 +16,7 @@
 # NOTES: ---
 # AUTHOR: Marc Tönsing
 # COMPANY: EatSmarter
-# VERSION: 1.1
+# VERSION: 1.0
 # CREATED: 06.08.2014
 # REVISION: 07.08.2014
 #===================================================================================
@@ -35,8 +35,8 @@ if [ -z "$2" ]
 fi
 
 getcURLResponseTime() {
-  TIME_TOTAL=$(curl -H "Cache-Control: no-cache, max-age=0" -g -s -w "%{time_total}\n" -o /dev/null $1 |sed -e "s/,/./g");
-  echo ${TIME_TOTAL};
+  TIME_TOTAL=$(curl --proxy localhost:8888 -H "Cache-Control: no-cache" -H "Pragma: no-cache" -g -s -w "%{time_total}\n" -o /dev/null $1 |sed -e "s/,/./g")
+  echo ${TIME_TOTAL}
 }
 
 timestamp() {
@@ -47,16 +47,15 @@ TIME_TOTAL=0;
 RESPONSE_TIME=0;
 
 while read line;
-  do
+do
   for (( c=1; c<=$RUNS; c++ ))
-    do
-    RESPONSE_TIME=$(getcURLResponseTime $line?timestamp=$(timestamp))
-    TIME_TOTAL=$(echo $TIME_TOTAL + $RESPONSE_TIME |bc);
+  do
+    RESPONSE_TIME=$(getcURLResponseTime $line\&timestamp=$(timestamp)$c)
+    TIME_TOTAL=$(echo $TIME_TOTAL + $RESPONSE_TIME |bc)
   done
   
-  average=$(echo "($TIME_TOTAL * 1000) / $RUNS" |bc);
-  TIME_TOTAL=0;
+  average=$(echo "($TIME_TOTAL * 1000) / $RUNS" |bc)
+  TIME_TOTAL=0
   
-  echo $average;
-
+  echo $average
 done < $1
