@@ -8,7 +8,6 @@ the number of runs for each url. The script uses no-cache headers and timestamps
 at the end of each url to invalidate caches like varnish.
 
 OPTIONS: see function ’usage’ below
-REQUIREMENTS: Needs the program 'gawk' installled. 
 BUGS: ---
 NOTES: ---
 AUTHOR: Marc Tönsing
