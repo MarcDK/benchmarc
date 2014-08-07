@@ -43,11 +43,9 @@ timestamp() {
   date +"%s"
 }
 
-TIME_TOTAL=0
-RESPONSE_TIME=0
-
 while read line
 do
+TIME_TOTAL=0
   for (( c=1; c<=$RUNS; c++ ))
   do
     RESPONSE_TIME=$(getcURLResponseTime $line\&timestamp=$(timestamp)$c)
@@ -55,7 +53,6 @@ do
   done
   
   average=$(echo "($TIME_TOTAL * 1000) / $RUNS" |bc)
-  TIME_TOTAL=0
   
   echo $average
 done < $1
