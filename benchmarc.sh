@@ -35,7 +35,7 @@ if [ -z "$2" ]
 fi
 
 getcURLResponseTime() {
-  TIME_TOTAL=$(curl --proxy localhost:8888 -H "Cache-Control: no-cache" -H "Pragma: no-cache" -g -s -w "%{time_total}\n" -o /dev/null $1 |sed -e "s/,/./g")
+  TIME_TOTAL=$(curl -H "Cache-Control: no-cache" -H "Pragma: no-cache" -g -s -w "%{time_total}\n" -o /dev/null $1 |sed -e "s/,/./g")
   echo ${TIME_TOTAL}
 }
 
@@ -43,10 +43,10 @@ timestamp() {
   date +"%s"
 }
 
-TIME_TOTAL=0;
-RESPONSE_TIME=0;
+TIME_TOTAL=0
+RESPONSE_TIME=0
 
-while read line;
+while read line
 do
   for (( c=1; c<=$RUNS; c++ ))
   do
