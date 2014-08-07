@@ -35,7 +35,7 @@ if [ -z "$2" ]
 fi
 
 getcURLResponseTime() {
-  TIME_TOTAL=$(curl --proxy localhost:8888  -H "Cache-Control: no-cache, max-age=0" -g -s -w "%{time_total}\n" -o /dev/null $1);
+  TIME_TOTAL=$(curl -H "Cache-Control: no-cache, max-age=0" -g -s -w "%{time_total}\n" -o /dev/null $1);
   echo ${TIME_TOTAL};
 }
 
