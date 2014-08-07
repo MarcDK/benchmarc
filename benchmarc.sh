@@ -1,9 +1,9 @@
  #!/bin/bash
 #===================================================================================
 #
-# FILE: benchmarc.sh
+# FILE: speedtool.sh
 #
-# USAGE: benchmarc.sh urls.txt 10 (optional)
+# USAGE: speedtool.sh  urls.txt 10 (optional)
 #
 # DESCRIPTION: measures the average sever response time of urls in milliseconds.
 # First parameter specifies a plain text file with urls. Second parameter sets
@@ -43,15 +43,20 @@ timestamp() {
   date +"%s"
 }
 
+TIME_TOTAL=0;
+RESPONSE_TIME=0;
+
 while read line;
   do
   for (( c=1; c<=$RUNS; c++ ))
     do
-    declare "TIME_TOTAL$c=$(getcURLResponseTime $line?timestamp=$(timestamp))"
+    RESPONSE_TIME=$(getcURLResponseTime $line?timestamp=$(timestamp))
+    TIME_TOTAL=$(echo $TIME_TOTAL + $RESPONSE_TIME | bc);
   done
-  sum=$(echo $TIME_TOTAL1 + $TIME_TOTAL2 + $TIME_TOTAL3 + $TIME_TOTAL4 + $TIME_TOTAL5 | bc);
-  average=$(echo "($sum * 1000) / $RUNS" | bc);
-
+  
+  average=$(echo "($TIME_TOTAL * 1000) / $RUNS" | bc);
+  TIME_TOTAL=0;
+  
   echo $average;
 
 done < $1
